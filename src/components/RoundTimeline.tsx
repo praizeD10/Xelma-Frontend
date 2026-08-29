@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { Round } from '../lib/api-client';
 import { useRoundStore } from '../store/useRoundStore';
+import { PredictionPulse } from './PredictionPulse';
 
 
 interface TimelineState {
@@ -97,7 +98,10 @@ const RoundTimeline: React.FC = () => {
       <div aria-live="polite" aria-atomic="true" className="sr-only">
         {stateAnnouncement}
       </div>
-      <h2 className="mb-4 text-lg font-bold text-white">Round Progress</h2>
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+        <h2 className="text-lg font-bold text-white">Round Progress</h2>
+        <PredictionPulse />
+      </div>
       {/* Loading & Disconnected Banners */}
       {currentState === 'loading' && (
         <div className="mb-4 p-3 bg-blue-900/50 border border-blue-500/50 rounded text-blue-200">

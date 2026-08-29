@@ -4,6 +4,7 @@ import { Activity, RefreshCw, TrendingUp, Users } from 'lucide-react';
 import { socketService } from '../lib/socket';
 import { useConnectionStatus } from '../hooks/useConnectionStatus';
 import { useRoundStore } from '../store/useRoundStore';
+import { PredictionPulse } from './PredictionPulse';
 
 type LiveStatsSnapshot = {
   activePlayers?: number;
@@ -98,11 +99,13 @@ function Metric({
   value,
   hint,
   icon,
+  children,
 }: {
   label: string;
   value: string;
   hint: string;
   icon: React.ReactNode;
+  children?: React.ReactNode;
 }) {
   return (
     <div className="rounded-lg border border-white/5 bg-black/30 p-3">
@@ -114,6 +117,7 @@ function Metric({
       </div>
       <p className="mt-2 font-mono text-2xl font-bold leading-none text-white">{value}</p>
       <p className="mt-1.5 truncate text-[11px] text-gray-500">{hint}</p>
+      {children}
     </div>
   );
 }
@@ -216,7 +220,9 @@ export default function LiveGameStatsPanel() {
             liveStats.recentPredictions === undefined ? 'Awaiting feed' : 'Submitted this session'
           }
           icon={<TrendingUp className="h-3 w-3" />}
-        />
+        >
+          <PredictionPulse className="mt-2" />
+        </Metric>
         <Metric
           label="Round status"
           value={roundStatus}
